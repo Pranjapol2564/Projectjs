@@ -1,38 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
+<% include ../partials/header %>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Library Management</title>
-  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../stylesheet/userLogin.css">
+ <% include ../partials/alerts %>
 
-</head>
-
-<body class="bg-image p-5 text-center shadow-1-strong rounded mb-5 text-white ">
-  <!--<% include ../partials/alerts %> -->
-
-  <div class="container bg-light ">
-      <form style="max-width:300px;margin:auto;margin-top: 100px;" action="/auth/user-login" method="POST">
-        <div class="mb-3">
-          <div class="text-center">
-            <h1 class="font-weight-bold text-dark">Welcome Back!!!</h1>
-            <h4 class="text-dark nu">Sign in your account</h4>
+<section id="userLoginForm">
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <div class="card">
+          <div class="card-header text-center">
+            <h4>User Login</h4>
           </div>
-          <input type="text" placeholder="username" class="form-control" id="exampleInputUsername" aria-describedby="emailHelp" name="username">
+            <div class="card-block">
+              <form class="p-3" action="/auth/user-login" method="POST">
+                <div class="form-group">
+                  <label class="form-control-label">Username</label>
+                  <input type="text" name="username" placeholder="Username" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label class="form-control-label">Password</label>
+                  <input type="password" name="password" placeholder="Password" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Login!</button>
+              </form>
+            </div>
         </div>
-        <div class="mb-3">
-          <input type="password" placeholder="*********" class="form-control" id="exampleInputPasswordexampleInputPassword1" name="password">
-        </div>
-        <div class="d-grid col-12 mx-auto">
-          <button type="submit" class="btn btn-primary ">Login</button>
-        </div>
-      </form>
-      <p class="text-black my-3">Don't have an account? <a href="/userSignup">Register here</a></p>
+      </div>
     </div>
-</div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-</body>
-</html>
+  </div>
+</section>
+
+
+<% include ../partials/footer %>
