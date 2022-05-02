@@ -1,0 +1,126 @@
+<% include ../partials/header %>
+
+<!--NAVIGATION BAR FOR USER-->
+<% include ../partials/userNav %>
+
+<% include ../partials/alerts %>
+<!-- ACTIONS -->
+<section id="actions" class="py-3 mb-4 bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <a href="/books/all/all" class="btn btn-primary btn-block">
+          <i class="fa fa-plus"></i> Issue Book
+        </a>
+      </div>
+
+
+      <div class="col-md-6">
+        <a href="/books/return-renew" class="btn btn-info btn-block">
+          <i class="fa fa-retweet"></i> Renew/Return Book
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+
+<section id="home" class="mt-4">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="card">
+          <div class="card-body">
+            <p>Name : <%=user.firstName%> <%=user.lastName%></p>
+            <p>Student ID : <%=user.stid%></p>
+            <p>Email : <%=user.email%></p>
+            <p>Book Issued : <%=user.bookIssueInfo.length%></p>
+            <p>Flagged : <%=user.violationFlag%></p>
+            <p>Joined : <%=user.joined.toDateString() %></p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-9">
+        
+        <div class="card">
+          <div class="card-header text-center">
+            <h4>Recent Activities</h4>
+          </div>
+          <table class="table table-striped">
+            <thead class="thead-inverse">
+              <tr>
+                <th>Info</th>
+                <th>Category</th>
+                <th>Date</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+               <% activities.forEach(activity => { %>
+                <% if(activity.category == 'Issue') { %>
+                     <tr>
+                        <td>You have <span class="table-text">issued</span> <%=activity.info.title%></td></td>
+                        <td><%=activity.category%></td>
+                        <td>
+                          <p>Issue :  <%=activity.time.issueDate.toDateString()%></p>
+                          <p>Return :  <%=activity.time.returnDate.toDateString()%></p>
+                        </td>
+                      </tr>  
+               <%  } else if(activity.category == 'Return') { %>
+                      <tr>
+                          <td>You have <span class="table-text">returned</span> <%=activity.info.title%></td></td>
+                          <td><%=activity.category%></td>
+                          <td>
+                            <p>Issue :  <%=activity.time.issueDate.toDateString()%></p>
+                            <p>Return :  <%=activity.time.returnDate.toDateString()%></p>
+                          </td>
+                      </tr>
+                 <%  } else if(activity.category == 'Fine') {%>
+                         <tr>
+                          <td>You <span class="table-text">paid</span> $<%=activity.fine.amount%> fines</td>
+                          <td><%=activity.category%></td>
+                          <td><%=activity.fine.date%></td>
+                          <td>
+                            <button class="btn btn-sm btn-secondary">
+                              <i class="fa fa-check"></i> Paid Successfully
+                            </button>
+                          </td>
+                        </tr>
+                  <%  } else if(activity.category == 'Renew') { %>
+                           <tr>
+                              <td>You have <span class="table-text">renewed</span> <%=activity.info.title%></td>
+                              <td><%=activity.category%></td>
+                              <td>
+                                <p>Issue :  <%=activity.time.issueDate.toDateString()%></p>
+                                <p>Return :  <%=activity.time.returnDate.toDateString()%></p>
+                              </td>
+                          </tr>
+                 <%  } %>
+            <% }); %>
+              
+            </tbody>
+          </table>
+          
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--PAY FINE MODAL-->
+<div class="modal fade" id="payFineModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title" id="payFineModalLabel">
+          This route is still under development. will be added in next version
+        </h5>
+        <button class="close" data-dismiss="modal" ><span>&times;</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% include ../partials/footer %>

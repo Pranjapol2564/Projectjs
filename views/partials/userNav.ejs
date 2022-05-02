@@ -1,0 +1,50 @@
+<style>
+  .navbar { background-color: #484848; }
+.navbar .navbar-nav .nav-link { color: #fff; }
+.navbar .navbar-nav .nav-link:hover { color: #fbc531; }
+.navbar .navbar-nav .active > .nav-link { color: #fbc531; }
+</style>
+
+<header>
+	<!--- Navbar --->
+	<nav class="navbar navbar-expand-lg">
+		<div class="container">
+			<a class="navbar-brand text-white" href="#"><i class="fa fa-graduation-cap fa-lg mr-2"></i>Library Management</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nvbCollapse" aria-controls="nvbCollapse">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="nvbCollapse">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item pl-1">
+						<a class="nav-link" href="/user"><i class="fa fa-home fa-fw mr-1"></i>Home</a>
+					</li>
+					
+					<li class="nav-item pl-1">
+						<a class="nav-link" href="/books/all/all"><i class="fa fa-search fa-fw mr-1"></i>Browse books</a>
+					</li>
+					 <%if(currentUser) { %>
+      <ul class="navbar-nav ml-auto">
+        <%if(currentUser.violationFlag) { %>
+        <li class="nav-item align-self-center mr-2">
+          <i class="fa fa-flag text-danger"></i>
+        </li>
+        <% } %>
+        <li class="nav-item dropdown mr-3">
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+            <i class="fa fa-user"></i> Welcome <%=currentUser.username%>
+          </a>
+          <div class="dropdown-menu">
+            <a href="/auth/user-logout" class="dropdown-item">
+              <i class="fa fa-user-times"></i> Logout
+            </a>
+          </div>
+        </li>
+
+      </ul>
+      <% } %>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!--# Navbar #-->
+	</header>

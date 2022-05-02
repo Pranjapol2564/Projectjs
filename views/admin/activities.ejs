@@ -1,0 +1,43 @@
+<% include ../partials/header %>
+
+    
+<!--NAVIGATION BAR FOR ADMIN-->
+<% include ../partials/adminNav %>
+
+<header id="main-header" class="py-2 bg-primary text-white">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h1><i class="fa fa-pencil"></i> User Activities</h1>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ACTIONS -->
+<section id="actions" class="py-4 mb-4">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3 mr-auto">
+          <a href="/admin" class="btn btn-light btn-block">
+          <i class="fa fa-arrow-left"></i> Back To Dashboard
+        </a>
+      </div>
+      <div class="col-md-6">
+        <form action="/admin/users/activities/<%=activities[0].user_id.id%>" method="POST">
+          <div class="input-group">
+            <input name="category" type="text" class="form-control" placeholder="Search activities by category...">
+            <span class="input-group-btn">
+              <button class="btn btn-primary">Search</button>
+            </span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<% include ../partials/footer %>

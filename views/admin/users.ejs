@@ -1,0 +1,76 @@
+<% include ../partials/header %>
+
+    
+<!--NAVIGATION BAR FOR ADMIN-->
+<% include ../partials/adminNav %>
+
+<% include ../partials/alerts %>
+
+<!-- USERS -->
+<section id="users">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="card">
+          <div class="card-header">
+            <h4>Users</h4>
+          </div>
+          <table class="table table-striped">
+            <thead class="thead-inverse">
+              <tr>
+                <th>Name</th>
+                <th>User name</th>
+                <th>Email</th>
+                 <th>Gender</th>
+                <th>Date Regisetered</th>
+                <th>Violation flag</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              
+            <% users.forEach(user => { %>
+              <%if (user.isAdmin) return; %>
+                <tr>
+                <td><%=user.firstName + " " + user.lastName%></td>
+                <td><a href="/admin/users/profile/<%=user._id%>" title="Visit this user"><%=user.username%></a></td>
+                <td><%=user.email%></td>
+                 <td><%=user.gender%></td>
+                <td><%=user.joined.toDateString()%></td>
+                <td><%=user.violationFlag%></td>
+                <td>
+                  <%if(user.bookIssueInfo.length > 0) { %>
+                  <a href="/admin/users/delete/<%=user._id%>" title="This user has books in possession. Are you sure to delete this user?" class="btn btn-sm btn-danger">
+                    <i class="fa fa-trash"></i>
+                  </a>
+                <%  } else { %>
+                  <a href="/admin/users/delete/<%=user._id%>" title="Delete User" class="btn btn-sm btn-danger">
+                    <i class="fa fa-trash"></i>
+                  </a>
+                <% } %>
+                
+                <% if(user.violationFlag) { %> 
+                    <a href="/admin/users/flagged/<%=user._id%>" title="Lift the flag" class="btn btn-sm btn-warning">
+                      <i class="fa fa-flag"></i>
+                    </a>
+                <%  } else {  %>
+                    <a href="/admin/users/flagged/<%=user._id%>" title="Warn user" class="btn btn-sm btn-success">
+                      <i class="fa fa-flag"></i>
+                    </a>
+                <%  } %>
+                </td>
+              </tr>
+            <% }); %>
+            </tbody>
+          </table>
+
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<% include ../partials/footer %>

@@ -1,0 +1,17 @@
+.container {
+    border: 1px solid #645d5d;
+    margin-top: 100px;
+    width: 45%;
+    height: 500px;
+    border-radius:30px;
+}
+
+.bg-image {
+    background-image: url('../image/library.jpg');
+    backdrop-filter: blur(6px);
+    height: 100%;
+}
+
+html {
+    height: 100%
+}

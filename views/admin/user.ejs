@@ -1,0 +1,85 @@
+<% include ../partials/header %>
+
+<% include ../partials/adminNav %>
+
+<div class="container mt-5 pt-2">
+    <div class="row">
+        <div class="col-md-3">
+          <div class="card">
+            <div class="card-body">
+                <p>Name : <%=user.firstName%> <%=user.lastName%></p>
+                <p>Student ID : <%=user.stid%></p>
+                <p>Email : <%=user.email%></p>
+                <p>Book Issued : <%=user.bookIssueInfo.length%></p>
+                <p>Flagged : <%=user.violationFlag%></p>
+                <p>Joined : <%=user.joined.toDateString() %></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9">
+          
+          <div class="card">
+            <div class="card-header text-center">
+              <h4>Recent Activities</h4>
+            </div>
+            <table class="table table-striped">
+              <thead class="thead-inverse">
+                <tr>
+                  <th>Info</th>
+                  <th>Category</th>
+                  <th>Date</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                 <% activities.forEach(activity => { %>
+                  <% if(activity.category == 'Issue') { %>
+                       <tr>
+                          <td><%=user.firstName%> <span class="table-text">issued</span> <%=activity.info.title%></td></td>
+                          <td><%=activity.category%></td>
+                          <td>
+                            <p>Issue :  <%=activity.time.issueDate.toDateString()%></p>
+                            <p>Return :  <%=activity.time.returnDate.toDateString()%></p>
+                          </td>
+                        </tr>  
+                 <%  } else if(activity.category == 'Return') { %>
+                        <tr>
+                            <td><%=user.firstName%> <span class="table-text">returned</span> <%=activity.info.title%></td></td>
+                            <td><%=activity.category%></td>
+                            <td>
+                              <p>Issue :  <%=activity.time.issueDate.toDateString()%></p>
+                              <p>Return :  <%=activity.time.returnDate.toDateString()%></p>
+                            </td>
+                        </tr>
+                    <%  } else if(activity.category == 'Renew') { %>
+                             <tr>
+                                <td>You have <span class="table-text">renewed</span> <%=activity.info.title%></td>
+                                <td><%=activity.category%></td>
+                                <td>
+                                  <p>Issue :  <%=activity.time.issueDate.toDateString()%></p>
+                                  <p>Return :  <%=activity.time.returnDate.toDateString()%></p>
+                                </td>
+                            </tr>
+                    <% } else if(activity.category == 'Update Password') { %>
+                              <tr>
+                                <td>You have recently <span class="table-text">updated your password</span></td>
+                                <td><%=activity.category%></td>
+                                <td>
+                                  <%=activity.entryTime.toDateString()%>
+                                  </td>
+                                <td>
+                                  <button class="btn btn-sm btn-success">Changed Successfully!</button>
+                                </td>
+                            </tr>
+                   <%  } %>
+              <% }); %>
+                
+              </tbody>
+            </table>
+            
+          </div>
+        </div>
+      </div>
+</div>
+
+<% include ../partials/footer %>

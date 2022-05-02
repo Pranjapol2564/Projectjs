@@ -1,0 +1,90 @@
+<% include partials/header %>
+<style>
+  .navbar { background-color: #484848; }
+.navbar .navbar-nav .nav-link { color: #fff; }
+.navbar .navbar-nav .nav-link:hover { color: #fbc531; }
+.navbar .navbar-nav .active > .nav-link { color: #fbc531; }
+</style>
+<!--NAVIGATION BAR-->
+      <%if(!currentUser.isAdmin) { %>
+        <% include partials/userNav %>
+      <% } else if(currentUser.isAdmin) { %>
+        <% include partials/adminNav %>
+      <% } %>
+
+<!--SEARCH BAR-->
+<section id="search_bar" class="my-3 py-4 bg-light">
+  <div class="container">
+   <form action="/books/all/all" method="POST">
+    <div class="row">
+        <div class="col-md-5 p-1">
+          <select name="filter" class="form-control">
+            <option selected disabled>Select Filter...</option>
+            <option  name="title">Title</option>
+            <option  name="author">Author</option>
+            <option  name="category">Category</option>
+            <option  name="ISBN">ISBN</option>
+          </select>
+        </div>
+        
+         <div class="col-md-5 p-1">
+          <input name="searchName"  type="text" class="form-control" placeholder="Search Books">
+        </div>
+        
+         <div class="col-md-2 p-1">
+          <input type="submit" class="btn btn-outline-primary btn-block" value="Search">
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<% include partials/alerts %>
+
+<!--BOOKS-->
+<section id="browse_books" class="mt-5">
+  <div class="container">
+    
+    <div class="row">
+    <% for(var i = 0; i < books.length; i++) { %>
+    <div class="card col-md-3 text-center">
+          <div class="card-body">
+            <h5 class="card-title"> <%=books[i].title%> </h5>
+            <p class="text-muted">
+              <small class="text-muted">Author : <%=books[i].author%></small>
+            </p>
+            <p class="text-muted">
+              <small class="text-muted">Category : <%=books[i].category%></small>
+            </p>
+            <p class="text-muted">
+              <small class="text-muted">ISBN : <%=books[i].ISBN%></small>
+            </p>
+            <p class="text-muted">
+              <small class="text-muted">In stock : <%=books[i].stock%></small>
+            </p>
+           
+            
+            <% if(currentUser && books[i].stock > 0) { var match = false%>
+                <% user.bookIssueInfo.forEach(book_info => { %>
+                    <% if(book_info._id.equals(books[i]._id)) { %> 
+                       <a href="#" class="btn btn-xs btn-warning disabled" role="button" aria-disabled="true">Issued!</a>
+                       <a href="/books/return-renew" class="btn btn-xs btn-success" role="button">Return/Renew</a>
+                    <% match = true; } %>
+             <% }) %>
+             
+             <% if(!match) {%>
+            <form action="/books/<%=books[i]._id%>/issue/<%=currentUser._id%>" method="POST" class="d-inline">
+               <input class="btn btn-xs btn-success" type="submit" value="Issue">
+            </form>
+            <% } %>
+            <% } %>
+          </div>
+        </div>
+    <% } %>
+    </div>
+    
+  </div>
+</section>
+
+
+<% include partials/footer %>
